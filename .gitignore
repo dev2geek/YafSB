@@ -1,2 +1,5 @@
 # idea
 .idea/
+
+# swap file
+*.swp

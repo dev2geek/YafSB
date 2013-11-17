@@ -5,6 +5,8 @@
  * @desc 默认控制器
  * @see http://www.php.net/manual/en/class.yaf-controller-abstract.php
  */
+use Exception\ATANotFound as ATANotFound;
+
 class IndexController extends \Yaf\Controller_Abstract {
 
 	/** 
@@ -15,6 +17,9 @@ class IndexController extends \Yaf\Controller_Abstract {
 	public function indexAction($name = "Stranger") {
 		//1. fetch query
 		$get = $this->getRequest()->getQuery("get", "default value");
+
+        //oops, an exception is thrown
+        throw new ATANotFound ( 'oops' );
 
 		//2. fetch model
 		$model = new SampleModel();
