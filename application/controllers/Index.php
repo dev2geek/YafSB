@@ -31,4 +31,19 @@ class IndexController extends \Yaf\Controller_Abstract {
 		//4. render by Yaf, 如果这里返回FALSE, Yaf将不会调用自动视图引擎Render模板
         return TRUE;
 	}
+
+    public function notfoundAction() {
+        echo '404 not found';
+        return FALSE;
+    }
+
+    public function echoAction($id) {
+        echo $id;
+        return FALSE;
+    }
+
+    public function numberAction($id) {
+        echo 'this is girl ' . $id;
+        return FALSE;
+    }
 }

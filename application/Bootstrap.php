@@ -10,22 +10,49 @@
 class Bootstrap extends \Yaf\Bootstrap_Abstract{
 
     public function _initConfig() {
-		//把配置保存起来
-		$arrConfig = \Yaf\Application::app()->getConfig();
-		\Yaf\Registry::set('config', $arrConfig);
-	}
+        //把配置保存起来
+        $arrConfig = \Yaf\Application::app()->getConfig();
+        \Yaf\Registry::set('config', $arrConfig);
+    }
 
-	public function _initPlugin(\Yaf\Dispatcher $dispatcher) {
-		//注册一个插件
-		$objSamplePlugin = new SamplePlugin();
-		$dispatcher->registerPlugin($objSamplePlugin);
-	}
+    public function _initPlugin(\Yaf\Dispatcher $dispatcher) {
+    }
 
-	public function _initRoute(\Yaf\Dispatcher $dispatcher) {
-		//在这里注册自己的路由协议,默认使用简单路由
-	}
-	
-	public function _initView(\Yaf\Dispatcher $dispatcher){
-		//在这里注册自己的view控制器，例如smarty,firekylin
-	}
+    public function _initRoute(\Yaf\Dispatcher $dispatcher) {
+        //在这里注册自己的路由协议,默认使用简单路由
+        $router = \Yaf\Dispatcher::getInstance()->getRouter();
+
+        $route_0 = new \Yaf\Route\Rewrite(
+            '*',
+            array(
+                'controller' => 'index',
+                'action' => 'notfound')
+        );
+
+        $route_1 = new \Yaf\Route\Rewrite(
+            'article/:id',
+                array(
+                    'controller' => 'index',
+                    'action' => 'echo')
+        );
+
+        $route_2 = new \Yaf\Route\Regex(
+            '#girl/([\d]+)$#',
+            array(
+                'controller' => 'index',
+                'action' => 'number'
+            ),
+            array(
+                1 => 'id'
+            )
+        );
+
+        $router->addRoute('notfound', $route_0);
+        $router->addRoute('article', $route_1);
+        $router->addRoute('girl', $route_2);
+    }
+    
+    public function _initView(\Yaf\Dispatcher $dispatcher){
+        //在这里注册自己的view控制器，例如smarty,firekylin
+    }
 }
